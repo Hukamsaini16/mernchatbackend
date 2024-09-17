@@ -63,6 +63,13 @@ app.use("/api/contacts", contactsRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/channel", channelRoutes);
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Catch-all route to serve the index.html for any unmatched routes
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
+
 // Start the server
 const server = app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
